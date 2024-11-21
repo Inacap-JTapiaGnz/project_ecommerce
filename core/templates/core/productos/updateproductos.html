@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+<!-- Imagen de Header -->
+{% block headerimagen %}
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Modificar Productos</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Modificar Productos</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+{% endblock %}
+
+{% block firstcategoryprod %}
+
+<form method="POST" enctype="multipart/form-data" style="margin: 10px;">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-primary" style="margin: 10px;">Guardar</button>
+</form>
+
+<a href="{% url 'listaproductos' %}" class="btn btn-primary" style="margin: 10px;">Volver a la lista de productos</a>
+
+{{ mensaje }}
+{% endblock %}

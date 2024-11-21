@@ -1,0 +1,65 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block headerimagen %}
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Detalle Productos</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="{% url 'index' %}">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Detalle Productos</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block firstcategoryprod %}
+<div class="container-fluid py-5">
+    <div class="row px-xl-5">
+        <!-- Carousel de Productos -->
+        <div class="col-lg-5 pb-5">
+            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                <!-- Contenedor de imágenes del producto -->
+                <div class="carousel-inner border">
+                    {% for producto in productos %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}" data-product-id="{{ forloop.counter }}">
+                        {% if producto.imgproducto %}
+                        <img class="w-100 h-100" src="{{ producto.imgproducto.url }}" alt="{{ producto.nombre }}">
+                        {% else %}
+                        <img class="w-100 h-100" src="{% static 'core/img/random-user.png' %}" alt="Producto genérico">
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>                
+                <!-- Controles del carrusel -->
+                <a class="carousel-control-prev" href="#product-carousel" role="button" data-slide="prev">
+                    <i class="fa fa-2x fa-angle-left text-dark"></i>
+                </a>
+                <a class="carousel-control-next" href="#product-carousel" role="button" data-slide="next">
+                    <i class="fa fa-2x fa-angle-right text-dark"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Información del Producto -->
+        <div class="col-lg-7 pb-5">
+            <div id="product-info">
+                {% for producto in productos %}
+                <div class="product-detail {% if not forloop.first %}d-none{% endif %}" data-product-id="{{ forloop.counter }}">
+                    <h3 class="font-weight-semi-bold">{{ producto.nombre }}</h3>
+                    <div class="d-flex mb-3">
+                        <small class="text-muted">Tipo: {{ producto.tipo }}</small>
+                    </div>
+                    <h4 class="font-weight-semi-bold mb-4">${{ producto.precio }}</h4>
+                    <p class="mb-4">{{ producto.descripcion }}</p>
+                    <p><strong>Stock disponible:</strong> {{ producto.stock }}</p>
+                    <p><strong>Fecha de vencimiento:</strong> {{ producto.fecha_vencimiento }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login de ECommerce</title>
+  <link rel="stylesheet" href="../../static/core/css/style.min.css" />
+</head>
+
+<body>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <div
+      class="align-items-center justify-content-center" style="position: relative; overflow: hidden; min-height: 100vh;">
+      <div class="d-flex align-items-center justify-content-center" style="width: 100%;">
+        <div class="row justify-content-center" style="width: 100%;">
+          <div class="col-md-8 col-lg-6 col-xxl-3" style="margin: 200px; padding: 10px; background-color: aliceblue; border-radius: 3%;">
+            <div class="card mb-0" style="border-radius: 3%;">
+              <div class="card-body">
+                <a href="#" class="text-nowrap logo-img" style="text-align: center; display: block; padding-top: 1rem; padding-bottom: 1rem; width: 100%;">
+                  <img src="../../static/core/img/ecomm.svg" width="180" alt="">
+                </a>
+                <p class="text-center form-label" >ECOMMERCE</p>
+                <form id="login-form">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label" style="margin-left: 5px;">Usuario</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" style="width: 98%; margin-left: 5px;">
+                  </div>
+                  <div class="mb-4">
+                    <label for="exampleInputPassword1" class="form-label" style="margin-left: 5px;">Contraseña</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" style="width: 98%; margin-left: 5px;">
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="form-check">
+                      <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" style="margin-left: -15px;" checked>
+                      <label class="form-check-label text-dark" for="flexCheckChecked" style="margin-left: 3px;">
+                        Recordarme
+                      </label>
+                    </div>
+                    <a class="text-primary" style="font-weight: 500; margin-right: 5px;" href="#">Olvide Contraseña</a>
+                  </div>
+                  <!-- Cambia el enlace por un botón submit -->
+                  <button type="submit" class="btn btn-primary py-8 fs-4 mb-4 rounded-2 form-label" style="width: 98%; margin-left: 5px;">
+                    Iniciar Sesión
+                  </button>
+                  <div class="d-flex align-items-center justify-content-center">
+                    <p class="mb-0 fw-bold" style="font-size: 1rem;">Registrate Aqui: </p>
+                    <a class="text-primary fw-bold ms-2" href="{% url 'register' %}">Crear Cuenta</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="{% static 'core/js/login-validation.js' %}"></script>
+</body>
+
+</html>
