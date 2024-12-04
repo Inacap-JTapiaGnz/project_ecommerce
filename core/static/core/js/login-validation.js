@@ -1,38 +1,60 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("login-form");
+    const form = document.querySelector("#login-form");
 
     if (form) {
-        form.addEventListener("submit", function (event) {
-            event.preventDefault(); // Previene el envío por defecto del formulario
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
 
-            const emailInput = document.getElementById("exampleInputEmail1");
-            const passwordInput = document.getElementById("exampleInputPassword1");
+            const email = form.querySelector("#exampleInputEmail1").value.trim();
+            const password = form.querySelector("#exampleInputPassword1").value.trim();
 
-            const email = emailInput.value.trim();
-            const password = passwordInput.value.trim();
-
-            // Validaciones básicas
+            // Validación de campos requeridos
             if (!email) {
-                alert("Por favor, Ingresa un Usuario Valido.");
+                alert("Por favor, ingresa tu correo electrónico.");
                 return;
             }
 
             if (!password) {
-                alert("Por favor, Ingresa una Contraseña.");
+                alert("Por favor, ingresa tu contraseña.");
                 return;
             }
 
-            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-            if (!passwordRegex.test(password)) {
-                alert("La Contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula y un número.");
-                return;
+            try {
+                // Verifica credenciales mediante el backend
+                const response = await fetch("/validate-login/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": getCSRFToken(), // Asegura el token CSRF
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+
+                const data = await response.json();
+
+                if (data.valid) {
+                    // Redirige al index si el login es exitoso
+                    alert("Inicio de sesión exitoso. Redirigiendo...");
+                    window.location.href = "/checkout/";
+                } else {
+                    alert(data.error || "Correo o contraseña incorrectos.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("No se pudo conectar al servidor.");
             }
-
-            // Si pasa las validaciones
-            alert("Inicio de Sesión Exitoso");
-
-            // Redirigir a la página de inicio
-            window.location.href = "/"; // Cambia la URL según la ruta de tu vista de index
         });
+    }
+
+    // Obtiene el token CSRF de las cookies
+    function getCSRFToken() {
+        const cookies = document.cookie.split("; ");
+        for (const cookie of cookies) {
+            const [name, value] = cookie.split("=");
+            if (name === "csrftoken") {
+                return value;
+            }
+        }
+        return null;
     }
 });

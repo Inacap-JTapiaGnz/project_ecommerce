@@ -24,7 +24,8 @@
                   <img src="../../static/core/img/ecomm.svg" width="180" alt="">
                 </a>
                 <p class="text-center form-label" >ECOMMERCE</p>
-                <form id="login-form">
+                <form id="login-form" method="post">
+                  {% csrf_token %}
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label" style="margin-left: 5px;">Usuario</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" style="width: 98%; margin-left: 5px;">

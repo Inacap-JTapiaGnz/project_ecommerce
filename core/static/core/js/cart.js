@@ -7,19 +7,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Renderiza los productos en el carrito
     function renderCart() {
-        cartItemsContainer.innerHTML = "";
+        //cartItemsContainer.innerHTML = "";
 
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = `
-                <tr>
-                    <td colspan="5" class="text-center">El carrito está vacío.</td>
-                </tr>
-            `;
-            subtotalElement.textContent = "$0";
-            totalElement.textContent = "$10"; // Costo fijo de envío
-            updateCartIcon(); // Actualiza el ícono del carrito
-            return;
-        }
+        //if (cart.length === 0) {
+        //    cartItemsContainer.innerHTML = `
+        //        <tr>
+        //            <td colspan="5" class="text-center">El carrito está vacío.</td>
+        //        </tr>
+        //    `;
+        //    subtotalElement.textContent = "$0";
+        //    totalElement.textContent = "$10"; // Costo fijo de envío
+        //    updateCartIcon(); // Actualiza el ícono del carrito
+        //    return;
+        //}
 
         let subtotal = 0;
 
