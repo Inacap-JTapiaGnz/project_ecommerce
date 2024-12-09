@@ -17,3 +17,15 @@ class ProductoForm(ModelForm):
         widgets = {
             'fecha_vencimiento': forms.SelectDateWidget(years=range(2021, 2030))
         }
+
+class DireccionForm(forms.ModelForm):
+    class Meta:
+        model = Direccion
+        fields = '__all__'
+
+class UsuarioForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = Usuario
+        fields = ['primer_nombre', 'segundo_nombre', 'email', 'telefono', 'password', 'direccion']

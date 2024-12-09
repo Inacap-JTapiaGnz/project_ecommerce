@@ -13,4 +13,6 @@ urlpatterns = [
     path('addproductos/', addproductos, name='addproductos'),
     path('updateproductos/<id>/', updateproductos, name='updateproductos'),
     path('deleteproductos/<id>/', deleteproductos, name='deleteproductos'),
+    path('validate-login/', validate_login, name='validate-login'),  # Nueva ruta
+    path('clear-cart/', clear_cart, name='clear_cart'),
 ]

@@ -5,8 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const cartIconCount = document.getElementById("cart-count");
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // Renderiza los productos en el carrito
+    // Limpia y renderiza los productos en el carrito
     function renderCart() {
+        // Limpia el contenedor antes de volver a llenarlo
         cartItemsContainer.innerHTML = "";
 
         if (cart.length === 0) {
@@ -79,36 +80,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Maneja los eventos de la tabla del carrito
     cartItemsContainer.addEventListener("click", function (e) {
-        if (e.target.closest(".btn-minus")) {
-            const productId = e.target.closest(".btn-minus").getAttribute("data-product-id");
+        const target = e.target.closest("button");
+
+        if (!target) return;
+
+        const productId = target.getAttribute("data-product-id");
+
+        if (target.classList.contains("btn-minus")) {
             const product = cart.find((item) => item.id === productId);
             if (product && product.quantity > 1) {
                 product.quantity -= 1; // Reduce la cantidad en 1
-                updateCart();
             } else if (product && product.quantity === 1) {
                 // Elimina el producto si la cantidad llega a 1 y se presiona el botón "-"
-                const updatedCart = cart.filter((item) => item.id !== productId);
-                cart = [...updatedCart];
-                updateCart();
+                cart = cart.filter((item) => item.id !== productId);
             }
+            updateCart();
         }
 
-        if (e.target.closest(".btn-plus")) {
-            const productId = e.target.closest(".btn-plus").getAttribute("data-product-id");
+        if (target.classList.contains("btn-plus")) {
             const product = cart.find((item) => item.id === productId);
             if (product) {
                 product.quantity += 1; // Incrementa la cantidad en 1
-                updateCart();
             }
+            updateCart();
         }
 
-        if (e.target.closest(".btn-remove")) {
-            const productId = e.target.closest(".btn-remove").getAttribute("data-product-id");
-
+        if (target.classList.contains("btn-remove")) {
             // Filtra los productos para eliminar el seleccionado
-            const updatedCart = cart.filter((item) => item.id !== productId);
-            cart = [...updatedCart];
-
+            cart = cart.filter((item) => item.id !== productId);
             updateCart();
         }
     });
